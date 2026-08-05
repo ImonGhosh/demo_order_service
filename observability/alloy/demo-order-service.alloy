@@ -1,0 +1,47 @@
+local.file_match "demo_order_service_logs" {
+	path_targets = [
+		{
+			__path__    = sys.env("DEMO_ORDER_SERVICE_LOG_PATH"),
+			app         = "ai-ops-demo",
+			service     = "demo-order-service",
+			environment = "local",
+		},
+	]
+}
+
+loki.source.file "demo_order_service" {
+	targets    = local.file_match.demo_order_service_logs.targets
+	forward_to = [loki.process.demo_order_service.receiver]
+}
+
+loki.process "demo_order_service" {
+	stage.json {
+		expressions = {
+			level          = "level",
+			error_category = "error_category",
+			logger         = "logger",
+			endpoint       = "endpoint",
+			method         = "method",
+		}
+	}
+
+	stage.labels {
+		values = {
+			level          = "level",
+			error_category = "error_category",
+		}
+	}
+
+	forward_to = [loki.write.grafana_cloud.receiver]
+}
+
+loki.write "grafana_cloud" {
+	endpoint {
+		url = sys.env("GRAFANA_LOKI_URL")
+
+		basic_auth {
+			username = sys.env("GRAFANA_LOKI_USERNAME")
+			password = sys.env("GRAFANA_LOKI_TOKEN")
+		}
+	}
+}

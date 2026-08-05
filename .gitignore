@@ -1,0 +1,19 @@
+.venv/
+.env
+backend/.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/*.log
+backend/*.log
+backend/logs/*.log
+data-alloy/
+
+# Local demo app database
+backend/demo_order_service.db
+demo_order_service.db
