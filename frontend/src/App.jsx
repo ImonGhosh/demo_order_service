@@ -300,7 +300,7 @@ export default function App() {
       <header className="topbar">
         <div>
           <h1>Demo Order Service</h1>
-          <p>Manual control surface for creating backend logs during Phase 1.</p>
+          <p>Manual control surface for creating backend logs</p>
         </div>
         <div className="api-target">
           <span>API</span>
