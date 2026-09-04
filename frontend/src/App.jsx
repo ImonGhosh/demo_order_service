@@ -68,7 +68,7 @@ const errorActions = [
   },
   {
     key: "configuration_error",
-    label: "Missing Config",
+    label: "Missing Configuration",
     path: "/test/errors/config-missing",
     icon: Settings,
   },
